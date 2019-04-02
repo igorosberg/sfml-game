@@ -4,49 +4,73 @@
 #include <SFML/Graphics.hpp>
 #include <SFML/Audio.hpp>
 
-namespace draw {
+class SFML {
+    public:
+        bool _fill;
+        bool _stroke;
+        int _text_size;
+        int _stroke_weight = 1;
+        int _fill_r, _fill_g, _fill_b;
+        int _stroke_r, _stroke_g, _stroke_b;
+        int _background_r, _background_g, _background_b;
+        sf::Font _font;
+        sf::RenderTexture _render_texture;
+        sf::RenderWindow _window;
+        sf::Event _event;
 
-    void init(int w, int h, const char* title);
+        double distance(double x1, double y1, double x2, double y2);
 
-    void clear();
+        double angleBwPoints(int x1, int y1, int x2, int y2);
 
-    void display();
+        void processEvents();
 
-    void ellipse(int x, int y, float w, float h);
+        bool mouseButtonIsPressed(sf::Mouse::Button button);
 
-    void rect(int x, int y, float w, float h);
+    public:
 
-    void line(int x1, int y1, int x2, int y2);
+        SFML(int w, int h, const char* title);
 
-    void noFill();
+        void clear();
 
-    void noStroke();
+        void display();
 
-    void fill(int r, int g, int b);
+        void ellipse(int x, int y, float w, float h);
 
-    void stroke(int r, int g, int b);
+        void rect(int x, int y, float w, float h);
 
-    void strokeWeight(int weight);
+        void line(int x1, int y1, int x2, int y2);
 
-    void background(int r, int g, int b);
+        void noFill();
 
-    sf::Image loadImage(const char* path);
+        void noStroke();
 
-    void image(sf::Image &image,int x, int y, int w = -1, int h = -1);
+        void fill(int r, int g, int b);
 
-    void textSize(int _size);
+        void stroke(int r, int g, int b);
 
-    void text(const char* text, int x, int y);
+        void strokeWeight(int weight);
 
-    void loadFont(const char* path);
+        void background(int r, int g, int b);
 
-    bool windowIsOpen();
+        sf::Image loadImage(const char* path);
 
-    sf::Event lastEvent();
+        void image(sf::Image &image,int x, int y, int w = -1, int h = -1);
 
-    sf::Sound loadSound(sf::SoundBuffer buffer);
+        void textSize(int _size);
+
+        void text(const char* text, int x, int y);
+
+        void loadFont(const char* path);
+
+        bool windowIsOpen();
+
+        sf::Sound loadSound(sf::SoundBuffer buffer);
+
+        bool mouseLeftButtonIsPressed();
+
+        bool mouseRightButtonIsPressed();
 
 
-}
+};
 
 #endif
