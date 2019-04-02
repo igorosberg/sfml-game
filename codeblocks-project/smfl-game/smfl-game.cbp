@@ -42,9 +42,9 @@
 		<Compiler>
 			<Add option="-Wall" />
 		</Compiler>
-		<Unit filename="draw.cpp" />
-		<Unit filename="draw.h" />
 		<Unit filename="main.cpp" />
+		<Unit filename="sfml.cpp" />
+		<Unit filename="sfml.h" />
 		<Unit filename="util.cpp" />
 		<Unit filename="util.h" />
 		<Extensions>
