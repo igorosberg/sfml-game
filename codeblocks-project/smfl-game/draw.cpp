@@ -52,11 +52,8 @@ namespace draw {
             ellipse.setPosition(x-w/h*r, y-r);
         }
 
-        if(_fill) {
-            ellipse.setFillColor(sf::Color(_fill_r,_fill_g,_fill_b));
-        } else {
-            ellipse.setFillColor(sf::Color(_background_r,_background_g,_background_b));
-        }
+        double alpha = (_fill) ? 255 : 0;
+        ellipse.setFillColor(sf::Color(_fill_r,_fill_g,_fill_b,alpha));
 
         if(_stroke) {
             ellipse.setOutlineThickness(_stroke_weight);
@@ -70,11 +67,8 @@ namespace draw {
         sf::RectangleShape rect(sf::Vector2f(w,h));
         rect.setPosition(x,y);
 
-        if(_fill) {
-            rect.setFillColor(sf::Color(_fill_r,_fill_g,_fill_b));
-        } else {
-            rect.setFillColor(sf::Color(_background_r,_background_g,_background_b));
-        }
+        double alpha = (_fill) ? 255 : 0;
+        rect.setFillColor(sf::Color(_fill_r,_fill_g,_fill_b, alpha));
 
         if(_stroke) {
             rect.setOutlineThickness(_stroke_weight);
