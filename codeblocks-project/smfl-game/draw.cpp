@@ -14,6 +14,9 @@ namespace draw {
         int _stroke_r = 255, _stroke_g = 255, _stroke_b = 255;
         int _background_r = 0, _background_g = 0, _background_b = 0;
         sf::Font _font;
+        sf::RenderTexture _render_texture;
+
+        sf::RenderWindow _window;
 
 
         double distance(double x1, double y1, double x2, double y2){
@@ -31,15 +34,26 @@ namespace draw {
 
     };
 
-    void clear(sf::RenderWindow &window) {
-        window.clear(sf::Color(_background_r,_background_g,_background_b));
+    void init(int w, int h, const char* title) {
+        sf::ContextSettings settings;
+        settings.antialiasingLevel = 8;
+        _window.create(sf::VideoMode(w, h), title, sf::Style::Default, settings);
+        _render_texture.create(w,h);
     }
 
-    void display(sf::RenderWindow &window) {
-        window.display();
+    void clear() {
+        _render_texture.clear(sf::Color(_background_r,_background_g,_background_b));
     }
 
-    void ellipse(sf::RenderWindow &window, int x, int y, float w, float h) {
+    void display() {
+        _render_texture.display();
+        _window.clear();
+        sf::Sprite sprite(_render_texture.getTexture());
+        _window.draw(sprite);
+        _window.display();
+    }
+
+    void ellipse(int x, int y, float w, float h) {
         float r = (w>h) ? w/2 : h/2;
 
         sf::CircleShape ellipse(r);
@@ -60,10 +74,10 @@ namespace draw {
             ellipse.setOutlineColor(sf::Color(_stroke_r, _stroke_g, _stroke_b));
         }
 
-        window.draw(ellipse);
+        _render_texture.draw(ellipse);
     }
 
-    void rect(sf::RenderWindow &window, int x, int y, float w, float h) {
+    void rect(int x, int y, float w, float h) {
         sf::RectangleShape rect(sf::Vector2f(w,h));
         rect.setPosition(x,y);
 
@@ -75,10 +89,10 @@ namespace draw {
             rect.setOutlineColor(sf::Color(_stroke_r, _stroke_g, _stroke_b));
         }
 
-        window.draw(rect);
+        _render_texture.draw(rect);
     }
 
-    void line(sf::RenderWindow &window, int x1, int y1, int x2, int y2) {
+    void line(int x1, int y1, int x2, int y2) {
         sf::RectangleShape rect(sf::Vector2f(distance(x1,y1,x2,y2),_stroke_weight));
         rect.setPosition(x1,y1);
         rect.setFillColor(sf::Color(_stroke_r,_stroke_g,_stroke_b));
@@ -86,7 +100,7 @@ namespace draw {
         double angle = angleBwPoints(x1,y1,x2,y2);
 
         rect.rotate(angle);
-        window.draw(rect);
+        _render_texture.draw(rect);
     }
 
     void noFill() {
@@ -127,7 +141,7 @@ namespace draw {
         return image;
     }
 
-    void image(sf::RenderWindow &window, sf::Image &image,int x, int y, int w, int h) {
+    void image(sf::Image &image,int x, int y, int w, int h) {
         sf::Texture texture;
         texture.loadFromImage(image);
 
@@ -141,19 +155,19 @@ namespace draw {
 
         sprite.setPosition(x,y);
 
-        window.draw(sprite);
+        _render_texture.draw(sprite);
     }
 
     void textSize(int _size) {
         _text_size = _size;
     }
 
-    void text(sf::RenderWindow &window, const char* _text, int x, int y) {
+    void text(const char* _text, int x, int y) {
         sf::Text text(_text, _font, _text_size);
         text.setCharacterSize(_text_size);
         text.setFillColor(sf::Color(_fill_r,_fill_g,_fill_b));
         text.setPosition(x,y);
-        window.draw(text);
+        _render_texture.draw(text);
     }
 
     void loadFont(const char* path) {
@@ -165,6 +179,20 @@ namespace draw {
         s.setBuffer(buffer);
         s.setVolume(50.f);
         return s;
+    }
+
+    bool windowIsOpen() {
+        return _window.isOpen();
+    }
+
+    sf::Event lastEvent() {
+        sf::Event event;
+        while (_window.pollEvent(event))
+        {
+            if (event.type == sf::Event::Closed)
+                _window.close();
+        }
+        return event;
     }
 
 

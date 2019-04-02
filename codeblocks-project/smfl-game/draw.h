@@ -6,15 +6,17 @@
 
 namespace draw {
 
-    void clear(sf::RenderWindow &window);
+    void init(int w, int h, const char* title);
 
-    void display(sf::RenderWindow &window);
+    void clear();
 
-    void ellipse(sf::RenderWindow &window, int x, int y, float w, float h);
+    void display();
 
-    void rect(sf::RenderWindow &window, int x, int y, float w, float h);
+    void ellipse(int x, int y, float w, float h);
 
-    void line(sf::RenderWindow &window, int x1, int y1, int x2, int y2);
+    void rect(int x, int y, float w, float h);
+
+    void line(int x1, int y1, int x2, int y2);
 
     void noFill();
 
@@ -30,13 +32,17 @@ namespace draw {
 
     sf::Image loadImage(const char* path);
 
-    void image(sf::RenderWindow &window, sf::Image &image,int x, int y, int w = -1, int h = -1);
+    void image(sf::Image &image,int x, int y, int w = -1, int h = -1);
 
     void textSize(int _size);
 
-    void text(sf::RenderWindow &window, const char* text, int x, int y);
+    void text(const char* text, int x, int y);
 
     void loadFont(const char* path);
+
+    bool windowIsOpen();
+
+    sf::Event lastEvent();
 
     sf::Sound loadSound(sf::SoundBuffer buffer);
 
