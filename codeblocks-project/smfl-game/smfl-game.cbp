@@ -45,6 +45,8 @@
 		<Unit filename="draw.cpp" />
 		<Unit filename="draw.h" />
 		<Unit filename="main.cpp" />
+		<Unit filename="util.cpp" />
+		<Unit filename="util.h" />
 		<Extensions>
 			<code_completion />
 			<envvars />
