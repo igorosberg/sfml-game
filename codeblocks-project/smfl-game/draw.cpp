@@ -7,9 +7,9 @@
 namespace draw {
     namespace {
         bool _fill = true;
-        bool _stroke = false;
+        bool _stroke = true;
         int _text_size = 30;
-        int _stroke_weight = 3;
+        int _stroke_weight = 1;
         int _fill_r = 255, _fill_g = 255, _fill_b = 255;
         int _stroke_r = 255, _stroke_g = 255, _stroke_b = 255;
         int _background_r = 0, _background_g = 0, _background_b = 0;
