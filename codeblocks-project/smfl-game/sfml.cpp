@@ -1,6 +1,5 @@
-#include "draw.h"
+#include "sfml.h"
 #include "util.h"
-#include <cmath>
 
 # define PI 3.14159265358979323846
 

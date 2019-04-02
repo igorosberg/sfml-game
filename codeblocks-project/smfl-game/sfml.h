@@ -1,5 +1,5 @@
-#ifndef DRAW_H
-#define DRAW_H
+#ifndef SFML_H
+#define SFML_H
 
 #include <SFML/Graphics.hpp>
 #include <SFML/Audio.hpp>

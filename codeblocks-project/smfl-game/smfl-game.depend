@@ -1992,11 +1992,17 @@
 	<chrono>
 	<random>
 
-1554245540 source:c:\users\igorosberg\git\sfml-game\codeblocks-project\smfl-game\main.cpp
-	<SFML/Graphics.hpp>
-	<SFML/Audio.hpp>
-	"draw.h"
+1554246179 source:c:\users\igorosberg\git\sfml-game\codeblocks-project\smfl-game\main.cpp
+	"sfml.h"
 	"util.h"
 
 1554228469 c:\users\igorosberg\git\sfml-game\codeblocks-project\smfl-game\util.h
+
+1554246208 source:c:\users\igorosberg\git\sfml-game\codeblocks-project\smfl-game\sfml.cpp
+	"sfml.h"
+	"util.h"
+
+1554246009 c:\users\igorosberg\git\sfml-game\codeblocks-project\smfl-game\sfml.h
+	<SFML/Graphics.hpp>
+	<SFML/Audio.hpp>
 

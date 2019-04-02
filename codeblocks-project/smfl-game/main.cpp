@@ -1,9 +1,6 @@
-#include <SFML/Graphics.hpp>
-#include <SFML/Audio.hpp>
-#include "draw.h"
+#include "sfml.h"
 #include "util.h"
 
-using namespace sf;
 using namespace util;
 
 int main() {
@@ -21,7 +18,7 @@ int main() {
     //início do laço principal do jogo
     while (sfml.windowIsOpen()) {
 
-        if(sfml.mouseRightButtonIsPressed()) {
+        if(sfml.mouseLeftButtonIsPressed()) {
             sfml.line(random(0,640),random(0,480),random(0,640),random(0,480));
             sfml.display();
         }
