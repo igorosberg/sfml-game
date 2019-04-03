@@ -1,33 +1,40 @@
 #include "sfml.h"
+#include "util.h"
+#include <cstring>
+
+using namespace util;
 
 int main() {
 
     SFML sfml(640,480,"Meu jogo!");
-    sfml.background(0,0,0);
+    sfml.background(200,200,200);
+    sfml.fill(0,0,0);
 
-    float x = 100;
-    float y = 100;
+    sfml.textSize(18);
 
-    float speed = 5;
+    int x1 = 10;
+    int y1 = 90;
+    char frase[100];
 
     while (sfml.windowIsOpen()) {
 
         sfml.clear();
 
-        if (sfml.keyIsDown(SFML::Key::Left)) {
-            x-=speed;
-        } else if (sfml.keyIsDown(SFML::Key::Right)) {
-            x+=speed;
-        } else if (sfml.keyIsDown(SFML::Key::Up)) {
-            y-=speed;
-        } else if (sfml.keyIsDown(SFML::Key::Down)) {
-            y+=speed;
-        }
+        int x2 = sfml.mouseX();
+        int y2 = sfml.mouseY();
 
-        sfml.ellipse(x, y, 50, 50);
+        sfml.line(x1, y1, x2, y2);
+        sfml.ellipse(x1, y1, 7, 7);
+        sfml.ellipse(x2, y2, 7, 7);
+
+        //calcula a distância entre os pontos (x1,y1) e (x2,y2)
+        int d = dist(x1, y1, x2, y2);
+
+        sprintf(frase,"A distância entre os pontos é %d pixels.",d);
+
+        sfml.text(frase, 80, 400);
 
         sfml.display();
-
     }
 
     return 0;

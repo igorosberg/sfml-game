@@ -37,6 +37,7 @@ class SFML {
         };
 
     private:
+
         bool _fill;
         bool _stroke;
         int _text_size;
@@ -94,8 +95,6 @@ class SFML {
         void textSize(int _size);
 
         void text(const char* text, int x, int y);
-
-        void loadFont(const char* path);
 
         bool windowIsOpen();
 

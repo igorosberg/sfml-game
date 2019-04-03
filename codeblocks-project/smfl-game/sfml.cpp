@@ -29,6 +29,7 @@ SFML::SFML(int w, int h, const char* title) {
     _window.create(sf::VideoMode(w, h), title, sf::Style::Default, settings);
     _window.setFramerateLimit(120);
     _render_texture.create(w,h);
+    _font.loadFromFile("Calibri.ttf");
 
     _fill = true;
     _stroke = false;
@@ -162,10 +163,6 @@ void SFML::text(const char* _text, int x, int y) {
     text.setFillColor(sf::Color(_fill_r,_fill_g,_fill_b));
     text.setPosition(x,y);
     _render_texture.draw(text);
-}
-
-void SFML::loadFont(const char* path) {
-    _font.loadFromFile(path);
 }
 
 sf::Sound SFML::loadSound(sf::SoundBuffer buffer) {
