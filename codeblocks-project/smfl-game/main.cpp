@@ -1,27 +1,32 @@
 #include "sfml.h"
-#include "util.h"
-
-using namespace util;
 
 int main() {
 
-    //cria a janela
     SFML sfml(640,480,"Meu jogo!");
+    sfml.background(0,0,0);
 
-    //define a cor de fundo
-    sfml.background(255,255,255);
+    float x = 100;
+    float y = 100;
 
-    sfml.stroke(0,0,0);
+    float speed = 5;
 
-    sfml.clear();
-
-    //início do laço principal do jogo
     while (sfml.windowIsOpen()) {
 
-        if(sfml.mouseLeftButtonIsPressed()) {
-            sfml.line(random(0,640),random(0,480),random(0,640),random(0,480));
-            sfml.display();
+        sfml.clear();
+
+        if (sfml.keyIsDown(SFML::Key::Left)) {
+            x-=speed;
+        } else if (sfml.keyIsDown(SFML::Key::Right)) {
+            x+=speed;
+        } else if (sfml.keyIsDown(SFML::Key::Up)) {
+            y-=speed;
+        } else if (sfml.keyIsDown(SFML::Key::Down)) {
+            y+=speed;
         }
+
+        sfml.ellipse(x, y, 50, 50);
+
+        sfml.display();
 
     }
 

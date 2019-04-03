@@ -27,7 +27,16 @@ SFML::SFML(int w, int h, const char* title) {
     sf::ContextSettings settings;
     settings.antialiasingLevel = 8;
     _window.create(sf::VideoMode(w, h), title, sf::Style::Default, settings);
+    _window.setFramerateLimit(120);
     _render_texture.create(w,h);
+
+    _fill = true;
+    _stroke = false;
+    _text_size = 20;
+    _stroke_weight = 1;
+    _fill_r = _fill_g = _fill_b = 255;
+    _stroke_r = _stroke_g = _stroke_b = 255;
+    _background_r = _background_g = _background_b = 0;
 }
 
 void SFML::clear() {
@@ -40,6 +49,17 @@ void SFML::display() {
     sf::Sprite sprite(_render_texture.getTexture());
     _window.draw(sprite);
     _window.display();
+}
+
+void SFML::drawShape(sf::Shape &shape) {
+    double alpha = (_fill) ? 255 : 0;
+    shape.setFillColor(sf::Color(_fill_r,_fill_g,_fill_b,alpha));
+
+    alpha = (_stroke) ? 255 : 0;
+    shape.setOutlineThickness(_stroke_weight);
+    shape.setOutlineColor(sf::Color(_stroke_r, _stroke_g, _stroke_b, alpha));
+
+    _render_texture.draw(shape);
 }
 
 void SFML::ellipse(int x, int y, float w, float h) {
@@ -55,30 +75,14 @@ void SFML::ellipse(int x, int y, float w, float h) {
         ellipse.setPosition(x-w/h*r, y-r);
     }
 
-    double alpha = (_fill) ? 255 : 0;
-    ellipse.setFillColor(sf::Color(_fill_r,_fill_g,_fill_b,alpha));
-
-    if(_stroke) {
-        ellipse.setOutlineThickness(_stroke_weight);
-        ellipse.setOutlineColor(sf::Color(_stroke_r, _stroke_g, _stroke_b));
-    }
-
-    _render_texture.draw(ellipse);
+    drawShape(ellipse);
 }
 
 void SFML::rect(int x, int y, float w, float h) {
     sf::RectangleShape rect(sf::Vector2f(w,h));
     rect.setPosition(x,y);
 
-    double alpha = (_fill) ? 255 : 0;
-    rect.setFillColor(sf::Color(_fill_r,_fill_g,_fill_b, alpha));
-
-    if(_stroke) {
-        rect.setOutlineThickness(_stroke_weight);
-        rect.setOutlineColor(sf::Color(_stroke_r, _stroke_g, _stroke_b));
-    }
-
-    _render_texture.draw(rect);
+    drawShape(rect);
 }
 
 void SFML::line(int x1, int y1, int x2, int y2) {
@@ -89,6 +93,7 @@ void SFML::line(int x1, int y1, int x2, int y2) {
     double angle = angleBwPoints(x1,y1,x2,y2);
 
     rect.rotate(angle);
+
     _render_texture.draw(rect);
 }
 
@@ -171,15 +176,13 @@ sf::Sound SFML::loadSound(sf::SoundBuffer buffer) {
 }
 
 bool SFML::windowIsOpen() {
+    processEvents();
     return _window.isOpen();
 }
 
 bool SFML::mouseButtonIsPressed(sf::Mouse::Button button){
-    processEvents();
-    if (_event.type == sf::Event::MouseButtonPressed) {
-        if (_event.mouseButton.button == button) {
-            return true;
-        }
+    if (sf::Mouse::isButtonPressed(button)) {
+        return true;
     }
     return false;
 }
@@ -190,4 +193,20 @@ bool SFML::mouseLeftButtonIsPressed() {
 
 bool SFML::mouseRightButtonIsPressed() {
     return mouseButtonIsPressed(sf::Mouse::Right);
+}
+
+int SFML::mouseX() {
+    return sf::Mouse::getPosition(_window).x;
+}
+
+int SFML::mouseY() {
+    return sf::Mouse::getPosition(_window).y;
+}
+
+bool SFML::keyIsDown(Key key){
+    return sf::Keyboard::isKeyPressed(static_cast<sf::Keyboard::Key>(key));
+}
+
+int SFML::getElapsedTime() {
+    return _clock.restart().asMilliseconds();
 }
