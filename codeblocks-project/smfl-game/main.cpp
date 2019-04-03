@@ -2,37 +2,22 @@
 
 int main() {
 
+    //cria a janela com tamanho 640x480 pixels
     SFML sfml(640,480,"Meu jogo!");
+
+    //define a cor de fundo como preto
     sfml.background(0,0,0);
 
-    Image image("explosion-sprite.png");
-
-    bool animating = false;
-    int i = 0;
-    int x, y;
-    int w = 100; //largura do objeto no sprite
-    int h = 100; //altura do objeto no sprite
-
-
+    //início do laço principal do jogo
     while (sfml.windowIsOpen()) {
 
+        //apaga o conteúdo da janela
         sfml.clear();
 
-        if(sfml.mouseLeftButtonIsPressed() && !animating) {
-            animating = true;
-            x = sfml.mouseX();
-            y = sfml.mouseY();
-        }
+        //Desenha uma ellipse no centro da tela
+        sfml.ellipse(320-50, 240-50, 100, 100);
 
-        if(animating) {
-            sfml.image(image,x-w/2,y-h/2,(i%9)*w,(i/9)*h,w,h);
-            i++;
-            if(i == 81) {
-                animating = false;
-                i = 0;
-            }
-        }
-
+        //mostra o conteúdo na janela
         sfml.display();
 
     }

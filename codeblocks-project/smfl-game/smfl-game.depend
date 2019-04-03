@@ -1992,19 +1992,19 @@
 	<chrono>
 	<random>
 
-1554318646 source:c:\users\igorosberg\git\sfml-game\codeblocks-project\smfl-game\main.cpp
+1554321753 source:c:\users\igorosberg\git\sfml-game\codeblocks-project\smfl-game\main.cpp
 	"sfml.h"
 
 1554307321 c:\users\igorosberg\git\sfml-game\codeblocks-project\smfl-game\util.h
 
-1554318855 source:c:\users\igorosberg\git\sfml-game\codeblocks-project\smfl-game\sfml.cpp
+1554321515 source:c:\users\igorosberg\git\sfml-game\codeblocks-project\smfl-game\sfml.cpp
 	"sfml.h"
 	"util.h"
 
-1554318398 c:\users\igorosberg\git\sfml-game\codeblocks-project\smfl-game\sfml.h
+1554321527 c:\users\igorosberg\git\sfml-game\codeblocks-project\smfl-game\sfml.h
 	<SFML/Graphics.hpp>
-	<SFML/Audio.hpp>
 	"image.h"
+	"sound.h"
 
 1554301813 source:c:\users\igoro\git\sfml-game\codeblocks-project\smfl-game\main.cpp
 	"sfml.h"
@@ -2033,4 +2033,10 @@
 
 1554307321 c:\users\igorosberg\git\sfml-game\codeblocks-project\smfl-game\image.h
 	<SFML/Graphics.hpp>
+
+1554322255 source:c:\users\igorosberg\git\sfml-game\codeblocks-project\smfl-game\sound.cpp
+	"sound.h"
+
+1554322294 c:\users\igorosberg\git\sfml-game\codeblocks-project\smfl-game\sound.h
+	<SFML/Audio.hpp>
 

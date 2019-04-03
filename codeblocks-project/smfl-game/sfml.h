@@ -2,9 +2,9 @@
 #define SFML_H
 
 #include <SFML/Graphics.hpp>
-#include <SFML/Audio.hpp>
 
 #include "image.h"
+#include "sound.h"
 
 class SFML {
     public:
@@ -108,7 +108,7 @@ class SFML {
 
         bool windowIsOpen();
 
-        sf::Sound loadSound(sf::SoundBuffer buffer);
+        Sound loadSound(const char* path);
 
         bool mouseLeftButtonIsPressed();
 

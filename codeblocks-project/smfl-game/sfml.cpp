@@ -200,11 +200,9 @@ void SFML::text(const char* str, int x, int y) {
     _render_texture.draw(_text);
 }
 
-sf::Sound SFML::loadSound(sf::SoundBuffer buffer) {
-    sf::Sound s;
-    s.setBuffer(buffer);
-    s.setVolume(50.f);
-    return s;
+Sound SFML::loadSound(const char* path) {
+    Sound sound(path);
+    return sound;
 }
 
 bool SFML::windowIsOpen() {
