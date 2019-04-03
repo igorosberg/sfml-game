@@ -80,6 +80,10 @@ class SFML {
 
         void ellipse(int x, int y, float w, float h, float angle = 0);
 
+        void regularPolygon(int x, int y, float w, float h, int edges, float angle = 0);
+
+        void convexPolygon(int x, int y, int points[][2], int n, float angle = 0);
+
         void rect(int x, int y, float w, float h, float angle = 0);
 
         void line(int x1, int y1, int x2, int y2);

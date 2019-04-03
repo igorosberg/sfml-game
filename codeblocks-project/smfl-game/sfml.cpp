@@ -75,9 +75,14 @@ void SFML::drawShape(sf::Shape &shape, float angle) {
 }
 
 void SFML::ellipse(int x, int y, float w, float h, float angle) {
+    regularPolygon(x,y,w,h,30,angle);
+}
+
+void SFML::regularPolygon(int x, int y, float w, float h, int edges, float angle) {
     float r = (w>h) ? w/2 : h/2;
 
     _ellipse.setRadius(r);
+    _ellipse.setPointCount(edges);
 
     if (w > h) {
         _ellipse.setScale(1, h/w);
@@ -89,6 +94,21 @@ void SFML::ellipse(int x, int y, float w, float h, float angle) {
 
     drawShape(_ellipse, angle);
 }
+
+void SFML::convexPolygon(int x, int y, int points[][2], int n, float angle) {
+    sf::ConvexShape convex;
+
+    convex.setPointCount(n);
+
+    for(int i = 0; i < n; ++i) {
+        convex.setPoint(i, sf::Vector2f(points[i][0], points[i][1]));
+    }
+
+    convex.setPosition(x, y);
+
+    drawShape(convex, angle);
+}
+
 
 void SFML::rect(int x, int y, float w, float h, float angle) {
     _vector2f.x = w;
