@@ -63,9 +63,15 @@ void SFML::drawShape(sf::Shape &shape, float angle) {
     shape.setOutlineThickness(_stroke_weight);
     shape.setOutlineColor(_color);
 
-    shape.rotate(angle);
-    _render_texture.draw(shape);
-    shape.rotate(-angle);
+    if(angle > 0){
+        sf::Transform _transform;
+        _bounds = shape.getGlobalBounds();
+        _transform.rotate(angle, _bounds.left+_bounds.width/2,_bounds.top+_bounds.height/2);
+        _render_texture.draw(shape, _transform);
+    } else {
+        _render_texture.draw(shape);
+    }
+
 }
 
 void SFML::ellipse(int x, int y, float w, float h, float angle) {
@@ -80,7 +86,6 @@ void SFML::ellipse(int x, int y, float w, float h, float angle) {
     }
 
     _ellipse.setPosition(x, y);
-    _ellipse.setOrigin(r,r);
 
     drawShape(_ellipse, angle);
 }
@@ -91,7 +96,7 @@ void SFML::rect(int x, int y, float w, float h, float angle) {
     _rect.setSize(_vector2f);
     _rect.setPosition(x,y);
 
-    _rect.setOrigin(w/2,h/2);
+    //_rect.setOrigin(w/2,h/2);
 
     drawShape(_rect, angle);
 }
@@ -157,20 +162,23 @@ Image SFML::loadImage(const char* path) {
     return image;
 }
 
-void SFML::image(Image &image,int dx, int dy, int sx, int sy, int sw, int sh) {
+void SFML::image(Image &image,int dx, int dy, int sx, int sy, int sw, int sh, int angle) {
     _texture.loadFromImage(image.image,sf::IntRect(sx,sy,sw,sh));
     _sprite2.setTexture(_texture, true);
 
-    int ow = _texture.getSize().x;
-    int oh = _texture.getSize().y;
-
     _sprite2.setPosition(dx,dy);
 
-    _render_texture.draw(_sprite2);
+    if(angle > 0){
+        sf::Transform _transform;
+        _transform.rotate(angle, dx+sw/2,dy+sh/2);
+        _render_texture.draw(_sprite2, _transform);
+    } else {
+        _render_texture.draw(_sprite2);
+    }
 }
 
-void SFML::image(Image &img,int dx, int dy) {
-    image(img,dx,dy,0,0,img.image.getSize().x,img.image.getSize().y);
+void SFML::image(Image &img,int dx, int dy, int angle) {
+    image(img,dx,dy,0,0,img.image.getSize().x,img.image.getSize().y, angle);
 }
 
 void SFML::textSize(int _size) {

@@ -62,6 +62,7 @@ class SFML {
         sf::Color _color;
         sf::Vector2f _vector2f;
         sf::Texture _texture;
+        sf::FloatRect _bounds;
 
         void processEvents();
 
@@ -97,9 +98,9 @@ class SFML {
 
         Image loadImage(const char* path);
 
-        void image(Image &image,int dx, int dy);
+        void image(Image &image,int dx, int dy, int angle = 0);
 
-        void image(Image &image,int dx, int dy, int sx, int sy, int sw, int sh);
+        void image(Image &image,int dx, int dy, int sx, int sy, int sw, int sh, int angle = 0);
 
         void textSize(int _size);
 
