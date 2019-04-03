@@ -1460,7 +1460,7 @@
 	<SFML/Audio/Export.hpp>
 	<string>
 
-1554219430 source:c:\users\igoro\git\sfml-game\codeblocks-project\smfl-game\util.cpp
+1554288793 source:c:\users\igoro\git\sfml-game\codeblocks-project\smfl-game\util.cpp
 	<cmath>
 	<chrono>
 	<random>
@@ -2006,17 +2006,16 @@
 	<SFML/Graphics.hpp>
 	<SFML/Audio.hpp>
 
-1554268057 source:c:\users\igoro\git\sfml-game\codeblocks-project\smfl-game\main.cpp
+1554292098 source:c:\users\igoro\git\sfml-game\codeblocks-project\smfl-game\main.cpp
 	"sfml.h"
-	"util.h"
 
-1554267117 c:\users\igoro\git\sfml-game\codeblocks-project\smfl-game\sfml.h
+1554288712 c:\users\igoro\git\sfml-game\codeblocks-project\smfl-game\sfml.h
 	<SFML/Graphics.hpp>
 	<SFML/Audio.hpp>
 
-1554218701 c:\users\igoro\git\sfml-game\codeblocks-project\smfl-game\util.h
+1554288701 c:\users\igoro\git\sfml-game\codeblocks-project\smfl-game\util.h
 
-1554268364 source:c:\users\igoro\git\sfml-game\codeblocks-project\smfl-game\sfml.cpp
+1554292165 source:c:\users\igoro\git\sfml-game\codeblocks-project\smfl-game\sfml.cpp
 	"sfml.h"
 	"util.h"
 

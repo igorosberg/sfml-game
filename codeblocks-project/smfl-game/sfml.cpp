@@ -1,21 +1,6 @@
 #include "sfml.h"
 #include "util.h"
 
-# define PI 3.14159265358979323846
-
-double SFML::distance(double x1, double y1, double x2, double y2){
-    return sqrt(pow(x2-x1,2)+pow(y2-y1,2));
-}
-
-double SFML::angleBwPoints(int x1, int y1, int x2, int y2) {
-    double dy = y2-y1;
-    double dx = x2-x1;
-    double theta = atan2(dy,dx);
-    theta *= 180/PI;
-    if(theta < 0) theta = 360 + theta;
-    return theta;
-}
-
 void SFML::processEvents() {
     while (_window.pollEvent(_event)) {
         if (_event.type == sf::Event::Closed)
@@ -41,63 +26,93 @@ SFML::SFML(int w, int h, const char* title) {
 }
 
 void SFML::clear() {
-    _render_texture.clear(sf::Color(_background_r,_background_g,_background_b));
+    _color.r = _background_r;
+    _color.g = _background_g;
+    _color.b = _background_b;
+    _color.a = 255;
+    _render_texture.clear(_color);
 }
 
 void SFML::display() {
     _render_texture.display();
     _window.clear();
-    sf::Sprite sprite(_render_texture.getTexture());
-    _window.draw(sprite);
+    _sprite.setTexture(_render_texture.getTexture());
+    _window.draw(_sprite);
     _window.display();
 }
 
 void SFML::drawShape(sf::Shape &shape, float angle) {
-    double alpha = (_fill) ? 255 : 0;
-    shape.setFillColor(sf::Color(_fill_r,_fill_g,_fill_b,alpha));
+    double alpha;
+
+    alpha = (_fill) ? 255 : 0;
+
+    _color.r = _fill_r;
+    _color.g = _fill_g;
+    _color.b = _fill_b;
+    _color.a = alpha;
+    shape.setFillColor(_color);
 
     alpha = (_stroke) ? 255 : 0;
-    shape.setOutlineThickness(_stroke_weight);
-    shape.setOutlineColor(sf::Color(_stroke_r, _stroke_g, _stroke_b, alpha));
-    shape.rotate(angle);
 
+    _color.r = _stroke_r;
+    _color.g = _stroke_g;
+    _color.b = _stroke_b;
+    _color.a = alpha;
+
+    shape.setOutlineThickness(_stroke_weight);
+    shape.setOutlineColor(_color);
+
+    shape.rotate(angle);
     _render_texture.draw(shape);
+    shape.rotate(-angle);
 }
 
 void SFML::ellipse(int x, int y, float w, float h, float angle) {
     float r = (w>h) ? w/2 : h/2;
 
-    sf::CircleShape ellipse(r);
+    _ellipse.setRadius(r);
 
     if (w > h) {
-        ellipse.setScale(1, h/w);
-        ellipse.setPosition(x-r,y-h/w*r);
+        _ellipse.setScale(1, h/w);
+        _ellipse.setPosition(x,y);
     } else {
-        ellipse.setScale(w/h, 1);
-        ellipse.setPosition(x-w/h*r, y-r);
+        _ellipse.setScale(w/h, 1);
+        _ellipse.setPosition(x, y);
     }
 
-    drawShape(ellipse, angle);
+    _ellipse.setOrigin(r,r);
+    drawShape(_ellipse, angle);
+    _ellipse.setOrigin(0,0);
 }
 
 void SFML::rect(int x, int y, float w, float h, float angle) {
-    sf::RectangleShape rect(sf::Vector2f(w,h));
-    rect.setPosition(x,y);
-    rect.setOrigin(w/2,h/2);
+    _vector2f.x = w;
+    _vector2f.y = h;
+    _rect.setSize(_vector2f);
+    _rect.setPosition(x,y);
 
-    drawShape(rect, angle);
+    _rect.setOrigin(w/2,h/2);
+    drawShape(_rect, angle);
+    _rect.setOrigin(0,0);
 }
 
 void SFML::line(int x1, int y1, int x2, int y2) {
-    sf::RectangleShape rect(sf::Vector2f(distance(x1,y1,x2,y2),_stroke_weight));
-    rect.setPosition(x1,y1);
-    rect.setFillColor(sf::Color(_stroke_r,_stroke_g,_stroke_b));
+    _vector2f.x = util::dist(x1,y1,x2,y2);
+    _vector2f.y = _stroke_weight;
+    _rect.setSize(_vector2f);
 
-    double angle = angleBwPoints(x1,y1,x2,y2);
+    _rect.setPosition(x1,y1);
+    _color.r = _stroke_r;
+    _color.g = _stroke_g;
+    _color.b = _stroke_b;
+    _color.a = 255;
+    _rect.setFillColor(_color);
 
-    rect.rotate(angle);
+    double angle = util::angleBwPoints(x1,y1,x2,y2);
 
-    _render_texture.draw(rect);
+    _rect.rotate(angle);
+    _render_texture.draw(_rect);
+    _rect.rotate(-angle);
 }
 
 void SFML::noFill() {
@@ -159,12 +174,15 @@ void SFML::textSize(int _size) {
     _text_size = _size;
 }
 
-void SFML::text(const char* _text, int x, int y) {
-    sf::Text text(_text, _font, _text_size);
-    text.setCharacterSize(_text_size);
-    text.setFillColor(sf::Color(_fill_r,_fill_g,_fill_b));
-    text.setPosition(x,y);
-    _render_texture.draw(text);
+void SFML::text(const char* str, int x, int y) {
+    _text.setString(str);
+    _text.setFont(_font);
+    _text.setCharacterSize(_text_size);
+
+    _text.setFillColor(sf::Color(_fill_r,_fill_g,_fill_b));
+    _text.setPosition(x,y);
+
+    _render_texture.draw(_text);
 }
 
 sf::Sound SFML::loadSound(sf::SoundBuffer buffer) {

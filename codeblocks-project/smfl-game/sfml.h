@@ -52,9 +52,12 @@ class SFML {
         sf::Event _event;
         sf::Clock _clock;
 
-        double distance(double x1, double y1, double x2, double y2);
-
-        double angleBwPoints(int x1, int y1, int x2, int y2);
+        sf::RectangleShape _rect;
+        sf::CircleShape _ellipse;
+        sf::Sprite _sprite;
+        sf::Text _text;
+        sf::Color _color;
+        sf::Vector2f _vector2f;
 
         void processEvents();
 
