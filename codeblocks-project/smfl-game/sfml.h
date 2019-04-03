@@ -4,6 +4,8 @@
 #include <SFML/Graphics.hpp>
 #include <SFML/Audio.hpp>
 
+#include "image.h"
+
 class SFML {
     public:
         enum Key {
@@ -42,9 +44,9 @@ class SFML {
         bool _stroke;
         int _text_size;
         int _stroke_weight = 1;
-        int _fill_r, _fill_g, _fill_b;
-        int _stroke_r, _stroke_g, _stroke_b;
-        int _background_r, _background_g, _background_b;
+        int _fill_r, _fill_g, _fill_b, _fill_a;
+        int _stroke_r, _stroke_g, _stroke_b, _stroke_a;
+        int _background_r, _background_g, _background_b, _background_a;
 
         sf::Font _font;
         sf::RenderTexture _render_texture;
@@ -55,9 +57,11 @@ class SFML {
         sf::RectangleShape _rect;
         sf::CircleShape _ellipse;
         sf::Sprite _sprite;
+        sf::Sprite _sprite2;
         sf::Text _text;
         sf::Color _color;
         sf::Vector2f _vector2f;
+        sf::Texture _texture;
 
         void processEvents();
 
@@ -83,17 +87,19 @@ class SFML {
 
         void noStroke();
 
-        void fill(int r, int g, int b);
+        void fill(int r, int g, int b, int a = 255);
 
-        void stroke(int r, int g, int b);
+        void stroke(int r, int g, int b, int a = 255);
 
         void strokeWeight(int weight);
 
-        void background(int r, int g, int b);
+        void background(int r, int g, int b, int a = 255);
 
-        sf::Image loadImage(const char* path);
+        Image loadImage(const char* path);
 
-        void image(sf::Image &image,int x, int y, int w = -1, int h = -1);
+        void image(Image &image,int dx, int dy);
+
+        void image(Image &image,int dx, int dy, int sx, int sy, int sw, int sh);
 
         void textSize(int _size);
 

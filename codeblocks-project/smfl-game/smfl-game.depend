@@ -2006,16 +2006,25 @@
 	<SFML/Graphics.hpp>
 	<SFML/Audio.hpp>
 
-1554292098 source:c:\users\igoro\git\sfml-game\codeblocks-project\smfl-game\main.cpp
+1554301813 source:c:\users\igoro\git\sfml-game\codeblocks-project\smfl-game\main.cpp
 	"sfml.h"
+	"util.h"
 
-1554288712 c:\users\igoro\git\sfml-game\codeblocks-project\smfl-game\sfml.h
+1554301205 c:\users\igoro\git\sfml-game\codeblocks-project\smfl-game\sfml.h
 	<SFML/Graphics.hpp>
 	<SFML/Audio.hpp>
+	"image.h"
 
 1554288701 c:\users\igoro\git\sfml-game\codeblocks-project\smfl-game\util.h
 
-1554292165 source:c:\users\igoro\git\sfml-game\codeblocks-project\smfl-game\sfml.cpp
+1554301928 source:c:\users\igoro\git\sfml-game\codeblocks-project\smfl-game\sfml.cpp
 	"sfml.h"
 	"util.h"
+	<iostream>
+
+1554299353 c:\users\igoro\git\sfml-game\codeblocks-project\smfl-game\image.h
+	<SFML/Graphics.hpp>
+
+1554299367 source:c:\users\igoro\git\sfml-game\codeblocks-project\smfl-game\image.cpp
+	"image.h"
 

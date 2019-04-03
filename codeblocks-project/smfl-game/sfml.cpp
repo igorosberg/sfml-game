@@ -20,16 +20,17 @@ SFML::SFML(int w, int h, const char* title) {
     _stroke = false;
     _text_size = 16;
     _stroke_weight = 1;
-    _fill_r = _fill_g = _fill_b = 255;
-    _stroke_r = _stroke_g = _stroke_b = 255;
+    _fill_r = _fill_g = _fill_b = _fill_a = 255;
+    _stroke_r = _stroke_g = _stroke_b = _stroke_a = 255;
     _background_r = _background_g = _background_b = 0;
+    _background_a = 255;
 }
 
 void SFML::clear() {
     _color.r = _background_r;
     _color.g = _background_g;
     _color.b = _background_b;
-    _color.a = 255;
+    _color.a = _background_a;
     _render_texture.clear(_color);
 }
 
@@ -44,7 +45,7 @@ void SFML::display() {
 void SFML::drawShape(sf::Shape &shape, float angle) {
     double alpha;
 
-    alpha = (_fill) ? 255 : 0;
+    alpha = (_fill) ? _fill_a : 0;
 
     _color.r = _fill_r;
     _color.g = _fill_g;
@@ -52,7 +53,7 @@ void SFML::drawShape(sf::Shape &shape, float angle) {
     _color.a = alpha;
     shape.setFillColor(_color);
 
-    alpha = (_stroke) ? 255 : 0;
+    alpha = (_stroke) ? _stroke_a : 0;
 
     _color.r = _stroke_r;
     _color.g = _stroke_g;
@@ -81,8 +82,8 @@ void SFML::ellipse(int x, int y, float w, float h, float angle) {
     }
 
     _ellipse.setOrigin(r,r);
+
     drawShape(_ellipse, angle);
-    _ellipse.setOrigin(0,0);
 }
 
 void SFML::rect(int x, int y, float w, float h, float angle) {
@@ -92,8 +93,8 @@ void SFML::rect(int x, int y, float w, float h, float angle) {
     _rect.setPosition(x,y);
 
     _rect.setOrigin(w/2,h/2);
+
     drawShape(_rect, angle);
-    _rect.setOrigin(0,0);
 }
 
 void SFML::line(int x1, int y1, int x2, int y2) {
@@ -105,7 +106,7 @@ void SFML::line(int x1, int y1, int x2, int y2) {
     _color.r = _stroke_r;
     _color.g = _stroke_g;
     _color.b = _stroke_b;
-    _color.a = 255;
+    _color.a = _stroke_a;
     _rect.setFillColor(_color);
 
     double angle = util::angleBwPoints(x1,y1,x2,y2);
@@ -123,51 +124,53 @@ void SFML::noStroke() {
     _stroke = false;
 }
 
-void SFML::fill(int r, int g, int b) {
+void SFML::fill(int r, int g, int b, int a) {
     _fill = true;
     _fill_r = r;
     _fill_g = g;
     _fill_b = b;
+    _fill_a = a;
 }
 
-void SFML::stroke(int r, int g, int b) {
+void SFML::stroke(int r, int g, int b, int a) {
     _stroke = true;
     _stroke_r = r;
     _stroke_g = g;
     _stroke_b = b;
+    _stroke_a = a;
 }
 
 void SFML::strokeWeight(int weight) {
     _stroke_weight = weight;
 }
 
-void SFML::background(int r, int g, int b) {
+void SFML::background(int r, int g, int b, int a) {
     _background_r = r;
     _background_g = g;
     _background_b = b;
+    _background_a = a;
 }
 
-sf::Image SFML::loadImage(const char* path) {
-    sf::Image image;
-    image.loadFromFile(path);
+Image SFML::loadImage(const char* path) {
+    Image image(path);
     return image;
 }
 
-void SFML::image(sf::Image &image,int x, int y, int w, int h) {
-    sf::Texture texture;
-    texture.loadFromImage(image);
+void SFML::image(Image &image,int dx, int dy, int sx, int sy, int sw, int sh) {
+    _texture.loadFromImage(image.image,sf::IntRect(sx,sy,sw,sh));
+    _sprite2.setTexture(_texture, true);
 
-    sf::Sprite sprite;
-    sprite.setTexture(texture);
+    int ow = _texture.getSize().x;
+    int oh = _texture.getSize().y;
 
-    float xscale = (w!=-1) ? (float)w/texture.getSize().x : 1;
-    float yscale = (h!=-1) ? (float)h/texture.getSize().y : 1;
+    _sprite2.setPosition(dx,dy);
+    _sprite2.setOrigin(ow/2,oh/2);
 
-    sprite.setScale(xscale,yscale);
+    _render_texture.draw(_sprite2);
+}
 
-    sprite.setPosition(x,y);
-
-    _render_texture.draw(sprite);
+void SFML::image(Image &img,int dx, int dy) {
+    image(img,dx,dy,0,0,img.image.getSize().x,img.image.getSize().y);
 }
 
 void SFML::textSize(int _size) {
@@ -179,7 +182,11 @@ void SFML::text(const char* str, int x, int y) {
     _text.setFont(_font);
     _text.setCharacterSize(_text_size);
 
-    _text.setFillColor(sf::Color(_fill_r,_fill_g,_fill_b));
+    _color.r = _fill_r;
+    _color.g = _fill_g;
+    _color.b = _fill_b;
+    _color.a = _fill_a;
+    _text.setFillColor(_color);
     _text.setPosition(x,y);
 
     _render_texture.draw(_text);

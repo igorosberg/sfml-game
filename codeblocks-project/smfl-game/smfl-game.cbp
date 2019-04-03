@@ -43,6 +43,8 @@
 		<Compiler>
 			<Add option="-Wall" />
 		</Compiler>
+		<Unit filename="image.cpp" />
+		<Unit filename="image.h" />
 		<Unit filename="main.cpp" />
 		<Unit filename="sfml.cpp" />
 		<Unit filename="sfml.h" />
