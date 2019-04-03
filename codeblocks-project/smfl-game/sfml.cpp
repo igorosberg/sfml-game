@@ -166,7 +166,6 @@ void SFML::image(Image &image,int dx, int dy, int sx, int sy, int sw, int sh) {
     int oh = _texture.getSize().y;
 
     _sprite2.setPosition(dx,dy);
-    _sprite2.setOrigin(ow/2,oh/2);
 
     _render_texture.draw(_sprite2);
 }
