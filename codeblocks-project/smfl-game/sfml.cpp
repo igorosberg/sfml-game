@@ -111,6 +111,8 @@ void SFML::line(int x1, int y1, int x2, int y2) {
 
     double angle = util::angleBwPoints(x1,y1,x2,y2);
 
+    _rect.setOrigin(0,0);
+
     _rect.rotate(angle);
     _render_texture.draw(_rect);
     _rect.rotate(-angle);

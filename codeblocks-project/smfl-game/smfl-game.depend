@@ -1987,24 +1987,24 @@
 	<SFML/Audio/Export.hpp>
 	<string>
 
-1554228469 source:c:\users\igorosberg\git\sfml-game\codeblocks-project\smfl-game\util.cpp
+1554307321 source:c:\users\igorosberg\git\sfml-game\codeblocks-project\smfl-game\util.cpp
 	<cmath>
 	<chrono>
 	<random>
 
-1554246179 source:c:\users\igorosberg\git\sfml-game\codeblocks-project\smfl-game\main.cpp
+1554307365 source:c:\users\igorosberg\git\sfml-game\codeblocks-project\smfl-game\main.cpp
+	"sfml.h"
+
+1554307321 c:\users\igorosberg\git\sfml-game\codeblocks-project\smfl-game\util.h
+
+1554307469 source:c:\users\igorosberg\git\sfml-game\codeblocks-project\smfl-game\sfml.cpp
 	"sfml.h"
 	"util.h"
 
-1554228469 c:\users\igorosberg\git\sfml-game\codeblocks-project\smfl-game\util.h
-
-1554246208 source:c:\users\igorosberg\git\sfml-game\codeblocks-project\smfl-game\sfml.cpp
-	"sfml.h"
-	"util.h"
-
-1554246009 c:\users\igorosberg\git\sfml-game\codeblocks-project\smfl-game\sfml.h
+1554307321 c:\users\igorosberg\git\sfml-game\codeblocks-project\smfl-game\sfml.h
 	<SFML/Graphics.hpp>
 	<SFML/Audio.hpp>
+	"image.h"
 
 1554301813 source:c:\users\igoro\git\sfml-game\codeblocks-project\smfl-game\main.cpp
 	"sfml.h"
@@ -2027,4 +2027,10 @@
 
 1554299367 source:c:\users\igoro\git\sfml-game\codeblocks-project\smfl-game\image.cpp
 	"image.h"
+
+1554307321 source:c:\users\igorosberg\git\sfml-game\codeblocks-project\smfl-game\image.cpp
+	"image.h"
+
+1554307321 c:\users\igorosberg\git\sfml-game\codeblocks-project\smfl-game\image.h
+	<SFML/Graphics.hpp>
 
