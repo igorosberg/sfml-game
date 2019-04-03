@@ -75,12 +75,11 @@ void SFML::ellipse(int x, int y, float w, float h, float angle) {
 
     if (w > h) {
         _ellipse.setScale(1, h/w);
-        _ellipse.setPosition(x,y);
     } else {
         _ellipse.setScale(w/h, 1);
-        _ellipse.setPosition(x, y);
     }
 
+    _ellipse.setPosition(x, y);
     _ellipse.setOrigin(r,r);
 
     drawShape(_ellipse, angle);
