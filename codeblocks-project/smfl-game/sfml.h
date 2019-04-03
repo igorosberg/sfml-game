@@ -60,7 +60,7 @@ class SFML {
 
         bool mouseButtonIsPressed(sf::Mouse::Button button);
 
-        void drawShape(sf::Shape &shape);
+        void drawShape(sf::Shape &shape, float angle);
 
     public:
 
@@ -70,9 +70,9 @@ class SFML {
 
         void display();
 
-        void ellipse(int x, int y, float w, float h);
+        void ellipse(int x, int y, float w, float h, float angle = 0);
 
-        void rect(int x, int y, float w, float h);
+        void rect(int x, int y, float w, float h, float angle = 0);
 
         void line(int x1, int y1, int x2, int y2);
 

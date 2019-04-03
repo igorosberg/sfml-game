@@ -33,7 +33,7 @@ SFML::SFML(int w, int h, const char* title) {
 
     _fill = true;
     _stroke = false;
-    _text_size = 20;
+    _text_size = 16;
     _stroke_weight = 1;
     _fill_r = _fill_g = _fill_b = 255;
     _stroke_r = _stroke_g = _stroke_b = 255;
@@ -52,18 +52,19 @@ void SFML::display() {
     _window.display();
 }
 
-void SFML::drawShape(sf::Shape &shape) {
+void SFML::drawShape(sf::Shape &shape, float angle) {
     double alpha = (_fill) ? 255 : 0;
     shape.setFillColor(sf::Color(_fill_r,_fill_g,_fill_b,alpha));
 
     alpha = (_stroke) ? 255 : 0;
     shape.setOutlineThickness(_stroke_weight);
     shape.setOutlineColor(sf::Color(_stroke_r, _stroke_g, _stroke_b, alpha));
+    shape.rotate(angle);
 
     _render_texture.draw(shape);
 }
 
-void SFML::ellipse(int x, int y, float w, float h) {
+void SFML::ellipse(int x, int y, float w, float h, float angle) {
     float r = (w>h) ? w/2 : h/2;
 
     sf::CircleShape ellipse(r);
@@ -76,14 +77,15 @@ void SFML::ellipse(int x, int y, float w, float h) {
         ellipse.setPosition(x-w/h*r, y-r);
     }
 
-    drawShape(ellipse);
+    drawShape(ellipse, angle);
 }
 
-void SFML::rect(int x, int y, float w, float h) {
+void SFML::rect(int x, int y, float w, float h, float angle) {
     sf::RectangleShape rect(sf::Vector2f(w,h));
     rect.setPosition(x,y);
+    rect.setOrigin(w/2,h/2);
 
-    drawShape(rect);
+    drawShape(rect, angle);
 }
 
 void SFML::line(int x1, int y1, int x2, int y2) {
